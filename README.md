@@ -1,4 +1,4 @@
-# MediTrain AI 🤖💡
+# MediTrain AI 🤖💊
 
 MediTrain AI is an advanced conversational assistant designed to enhance healthcare education and communication. Built for medical students, professionals, and health-conscious individuals, MediTrain AI helps users practice diagnosing medical conditions, learn about healthcare concepts, and interact with a state-of-the-art AI platform.
 
