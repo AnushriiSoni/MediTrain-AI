@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 #API URL
-API_URL_CHAT = "_____________"  
+API_URL_CHAT = "http://localhost:5000/response"  
 
 # Set up the Streamlit page configuration
 st.set_page_config(
@@ -35,21 +35,29 @@ st.markdown(
         color: #333;
     }
 
-    /* Buttons */
-   /* Buttons for Dashboard */
+/* Buttons for Dashboard */
 .stButton>button {
-    background-color: #d6eaf8; /* Light Blue Faded */
-    color: #333;
-    border-radius: 12px;
-    padding: 12px 24px;
-    font-size: 16px;
-    border: none;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white; /* White background for the button */
+    color: #008080; /* Teal Blue text color */
+    font-weight: bold;
+    font-size: 100px; /* Increased text size */
+    
+   
+    padding: 14px 28px; /* Larger padding for better usability */
+    margin-bottom: 10px;
+    cursor: pointer;
+    width: 100%; /* Full width */
+    text-align: left; /* Align text to the left */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
+/* Hover effect */
 .stButton>button:hover {
-    background-color: #aed6f1; /* Slightly More Intense Light Blue */
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    background-color: #008080; /* Teal Blue background on hover */
+    color: white; /* White text color on hover */
+    border: 2px solid #008080; /* Teal Blue border on hover */
+    font-size: 20px; /* Increased text size on hover */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
 }
 
 
@@ -122,7 +130,7 @@ def chat():
     if 'history' not in st.session_state:
         st.session_state.history = []
 
-    API_URL_CHAT = "____________________"  
+    API_URL_CHAT = "http://localhost:5000/response"  
 
     # Chat header
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
