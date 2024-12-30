@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 #API URL
-API_URL_CHAT = "http://localhost:5000/response"  
+API_URL_CHAT = "_____________"  
 
 # Set up the Streamlit page configuration
 st.set_page_config(
@@ -122,7 +122,7 @@ def chat():
     if 'history' not in st.session_state:
         st.session_state.history = []
 
-    API_URL_CHAT = "http://localhost:5000/response"  
+    API_URL_CHAT = "____________________"  
 
     # Chat header
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
