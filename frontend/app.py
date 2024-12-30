@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-# Define the API URL for chatbot response
+#API URL
 API_URL_CHAT = "http://localhost:5000/response"  
 
 # Set up the Streamlit page configuration
@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 
-    # Add custom CSS styles for the entire app
+#CSS styles for the entire app
 st.markdown(
     """
     <style>
@@ -116,40 +116,18 @@ st.markdown(
 )
 
 
-def home():
-    st.title("Welcome to Meditrain AI")
-    st.markdown("### **Your Partner in Mastering Medical Knowledge and Patient Care** 🤖💡")
-    
-    st.markdown("""
-    **Meditrain AI** is a state-of-the-art platform designed to assist healthcare professionals, medical students, and patients. 
-    By leveraging advanced artificial intelligence, we provide insights, enhance learning, and support healthcare decision-making.
-
-    #### Key Features:
-    - **Interactive Simulations**: Practice diagnosing and managing medical cases.
-    - **Personalized Insights**: Get tailored recommendations to improve your medical knowledge.
-    - **Health Education**: Learn actionable health tips and promote better patient care.
-    
-    Join us in redefining healthcare education and communication. Start your journey with Meditrain AI and explore the future of healthcare learning today!
-    """)
-
-    st.markdown("""
-    ### Ready to get started?
-     Head over to the **Chat** page to begin practicing your diagnostic skills.
-    """)
-
-    
 # Chat Page
 def chat():
     # Initialize the conversation history
     if 'history' not in st.session_state:
         st.session_state.history = []
 
-    # Define the API URL for chatbot response
     API_URL_CHAT = "http://localhost:5000/response"  
 
     # Chat header
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-    st.markdown('<div class="chat-header"> MediTrain AI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="chat-header" style="color: #00a1a1; font-size: 36px; font-weight: bold;">MediTrain AI</div>', unsafe_allow_html=True)
+
 
     # Display the conversation history
     for message in st.session_state.history:
@@ -190,126 +168,201 @@ def chat():
     st.markdown('</div>', unsafe_allow_html=True)
 
 
+
+
+def home():
+    
+    st.markdown("""
+    <div style="text-align: center; color: #004d40; font-size: 48px; font-weight: bold; margin-bottom: 20px;">
+        Welcome to <span style="color: #008080;">Meditrain AI</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style="text-align: center; color: #005f73; font-size: 28px; font-style: italic; margin-bottom: 30px;">
+        Your Ultimate Partner in <span style="color: #000; font-weight: bold;">Mastering Medical Knowledge</span> and Revolutionizing Patient Care 🤖💡
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style="color: #333; font-size: 20px; line-height: 1.8; text-align: justify; margin-bottom: 20px;">
+        <strong>Meditrain AI</strong> empowers <span style="color: #008080; font-weight: bold;">medical students</span>, <span style="color: #008080; font-weight: bold;">healthcare professionals</span>, and <span style="color: #d81b60; font-weight: bold;">patients</span> by combining <span style="color: #005f73;">advanced AI technology</span> with practical medical scenarios. Whether you’re learning or enhancing your skills, Meditrain AI provides personalized insights and recommendations to help you grow in your medical journey.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style="color: #333; font-size: 20px; line-height: 1.8; text-align: justify; margin-bottom: 30px;">
+        Experience realistic case simulations, improve patient care knowledge, and stay updated with the latest medical trends. Meditrain AI is designed to make learning interactive, engaging, and most importantly, practical. Ready to take your medical knowledge to the next level?
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style="text-align: center; margin-top: 40px;">
+        <p style="font-size: 22px; color: #333;">
+            <strong>Start your journey now!</strong>
+        </p>
+        <p style="font-size: 18px; color: #333;">
+            Visit the <strong>Chat Page</strong> from the Dashboard to explore our AI-powered platform.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
 # About Page
 def about():
-    st.title("About Meditrain AI")
+    st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+
+    st.markdown('<div class="chat-header" style="color: #00a1a1; font-size: 36px; font-weight: bold;">About MediTrain AI</div>', unsafe_allow_html=True)
+
     st.markdown("""
-    MediTrain AI is an advanced conversational assistant redefining how healthcare education and communication are experienced. Built to empower medical students, professionals, and health-conscious individuals, MediTrain bridges the gap between knowledge and practice through interactive simulations and insightful guidance.
+    <div>
+        <p>MediTrain AI is an advanced conversational assistant redefining how healthcare education and communication are experienced. 
+        Built to empower medical students, professionals, and health-conscious individuals, MediTrain bridges the gap between knowledge and practice 
+        through interactive simulations and insightful guidance.</p>
+    </div>
+    <hr style="border: 1px solid #ff69b4; margin: 20px 0;">
 
-    ## Our Vision:
-    We aim to make healthcare education accessible, engaging, and impactful. By offering a platform where users can learn, practice, and grow, MediTrain AI fosters a deeper understanding of healthcare concepts and promotes informed decision-making.
+    <div>
+        <h2 style="color: #008080; font-weight: bold;">Our Vision:</h2>
+        <p>We aim to make healthcare education accessible, engaging, and impactful. By offering a platform where users can learn, practice, 
+        and grow, MediTrain AI fosters a deeper understanding of healthcare concepts and promotes informed decision-making.</p>
+    </div>
+    <hr style="border: 1px solid #ff69b4; margin: 20px 0;">
 
-    ## Key Features:
+    <div>
+        <h2 style="color: #008080; font-weight: bold;">Key Features:</h2>
+        <ul style="font-size: 16px; line-height: 1.6;">
+            <li><strong style="color: #004d40;">Patient Interaction Simulations:</strong> Engage in realistic scenarios to enhance diagnostic skills and patient communication. MediTrain’s diverse simulations help users tackle complex cases with confidence.</li>
+            <li><strong style="color: #004d40;">Medical Education and Insights:</strong> Receive concise and clear explanations of medical concepts tailored to your knowledge level. Whether you're a student or a seasoned professional, MediTrain ensures learning remains relevant and straightforward.</li>
+            <li><strong style="color: #004d40;">Health Awareness and Preventive Care:</strong> Explore actionable wellness advice and health tips designed to promote healthy habits. While we avoid personalized medical recommendations, MediTrain AI encourages users to consult qualified professionals for specific concerns.</li>
+        </ul>
+    </div>
+    <hr style="border: 1px solid #ff69b4; margin: 20px 0;">
 
-    ##### 1. Patient Interaction Simulations:
-    Engage in realistic scenarios to enhance diagnostic skills and patient communication. MediTrain’s diverse simulations help users tackle complex cases with confidence.
+    <div>
+        <h2 style="color: #008080; font-weight: bold;">How We Engage:</h2>
+        <ul style="font-size: 16px; line-height: 1.6;">
+            <li><strong style="color: #004d40;">Empathy and Encouragement:</strong> Our assistant communicates with warmth and positivity, making users feel valued.</li>
+            <li><strong style="color: #004d40;">Simplified Communication:</strong> Avoiding unnecessary jargon, MediTrain explains terms and concepts in a user-friendly manner.</li>
+            <li><strong style="color: #004d40;">Proactive Assistance:</strong> Whether clarifying concepts or expanding on queries, MediTrain provides thoughtful and helpful guidance.</li>
+        </ul>
+    </div>
+    <hr style="border: 1px solid #ff69b4; margin: 20px 0;">
 
-    ##### 2. Medical Education and Insights:
-    Receive concise and clear explanations of medical concepts tailored to your knowledge level. Whether you're a student or a seasoned professional, MediTrain ensures learning remains relevant and straightforward.
+    <div>
+        <h2 style="color: #008080; font-weight: bold;">Why Choose MediTrain AI?</h2>
+        <p><strong>Realistic Learning:</strong> Practice medical scenarios that mimic real-world challenges.</p>
+        <p><strong>Customized Experience:</strong> Tailored interactions adapt to your expertise, making learning more effective.</p>
+        <p><strong>Health Literacy Promotion:</strong> Empowering users with accurate, understandable, and actionable information to make informed health decisions.</p>
+        <p>MediTrain AI is more than just a tool; it’s your partner in mastering healthcare concepts, improving patient interactions, and fostering a proactive approach to health and wellness. Together, we can build a healthier, more informed world.</p>
+    </div>
+    <hr style="border: 1px solid #ff69b4; margin: 20px 0;">
+    """, unsafe_allow_html=True)
 
-    ##### 3. Health Awareness and Preventive Care:
-    Explore actionable wellness advice and health tips designed to promote healthy habits. While we avoid personalized medical recommendations, MediTrain AI encourages users to consult qualified professionals for specific concerns.
-
-    ## How We Engage:
-    MediTrain AI combines knowledge with empathy, ensuring a supportive and dynamic user experience.
-
-    - **Empathy and Encouragement:** Our assistant communicates with warmth and positivity, making users feel valued.
-    - **Simplified Communication:** Avoiding unnecessary jargon, MediTrain explains terms and concepts in a user-friendly manner.
-    - **Proactive Assistance:** Whether clarifying concepts or expanding on queries, MediTrain provides thoughtful and helpful guidance.
-
-    ## Why Choose MediTrain AI?
-
-    - **Realistic Learning:** Practice medical scenarios that mimic real-world challenges.
-    - **Customized Experience:** Tailored interactions adapt to your expertise, making learning more effective.
-    - **Health Literacy Promotion:** Empowering users with accurate, understandable, and actionable information to make informed health decisions.
-
-    MediTrain AI is more than just a tool; it’s your partner in mastering healthcare concepts, improving patient interactions, and fostering a proactive approach to health and wellness. Together, we can build a healthier, more informed world.
-    """)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
-# How to Use Page
 def how_to_use():
-    st.title("How to Use Meditrain AI")
+    st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+
+    st.markdown('<div class="chat-header" style="color: #00a1a1; font-size: 36px; font-weight: bold;">How to Use MediTrain AI</div>', unsafe_allow_html=True)
+
     st.markdown("""
-    MediTrain AI helps you practice diagnosing medical conditions and learn about healthcare concepts through interactive simulations. Follow the steps below to get started:
+    <div>
+        <p>MediTrain AI helps you practice diagnosing medical conditions and learn about healthcare concepts through interactive simulations. Follow the steps below to get started:</p>
+    </div>
 
-    ## Steps to Use:
-    1. **Go to the Chat page.**
-    2. **Ask questions or describe your symptoms.**
-    3. **Meditrain AI will provide recommendations based on your inputs.**
-    4. **Use the feedback button to provide us with suggestions or ask for further assistance.**
+    <div>
+        <h2 style="color: #008080; font-weight: bold;">Steps to Use:</h2>
+        <ul style="font-size: 16px; line-height: 1.6;">
+            <li style="color: #004d40;"><strong>Go to the Chat page.</strong></li>
+            <li style="color: #004d40;"><strong>Ask questions or describe your symptoms.</strong></li>
+            <li style="color: #004d40;"><strong>MediTrain AI will provide recommendations based on your inputs.</strong></li>
+            <li style="color: #004d40;"><strong>Use the feedback button to provide us with suggestions or ask for further assistance.</strong></li>
+        </ul>
+    </div>
 
-    ## Tips:
-    - **Be as specific as possible with your queries.**
-    - **Meditrain AI continuously learns and improves, so your feedback helps us serve you better.**
+    <div>
+        <h2 style="color: #008080; font-weight: bold;">Tips:</h2>
+        <ul style="font-size: 16px; line-height: 1.6;">
+            <li style="color: #004d40;"><strong>Be as specific as possible with your queries.</strong></li>
+            <li style="color: #004d40;"><strong>MediTrain AI continuously learns and improves, so your feedback helps us serve you better.</strong></li>
+        </ul>
+    </div>
 
-    ## Use Case Scenario
+   <div class="response-box">
+        <h2 style="color: #008080; font-weight: bold;">Use Case Scenario</h2>
+        <h3 style="color: #004d40; font-weight: bold;">Scenario: Medical Student Diagnosing a Patient’s Condition</h3>
+        <ol style="font-size: 16px; line-height: 1.6;">
+            <li><strong style="color: #004d40;">User Opens Chat:</strong> Alex opens the Meditrain AI app and navigates to the Chat page to start a patient diagnosis simulation.</li>
+            <li><strong style="color: #004d40;">Initiating the Chat:</strong> MediTrain AI: *“Hello, Alex! I’m here to help you practice diagnosing medical cases. Are you ready for a simulation?”* <br> Alex: *“Yes, let’s start.”*</li>
+            <li><strong style="color: #004d40;">Presenting a Case:</strong> MediTrain AI: *“A 45-year-old male presents with fever, sore throat, body aches, and a persistent cough. What condition do you suspect?”* <br> Alex: *“It sounds like the flu.”*</li>
+            <li><strong style="color: #004d40;">Asking Probing Questions:</strong> MediTrain AI: *“Does the patient have any difficulty breathing or chest pain?”* <br> Alex: *“No, there’s no chest pain or shortness of breath.”*</li>
+            <li><strong style="color: #004d40;">Confirming Diagnosis:</strong> MediTrain AI: *“The flu seems likely, but always watch for complications. Would you like to explore more about flu management?”* <br> Alex: *“Yes.”*</li>
+            <li><strong style="color: #004d40;">Educational Insights:</strong> MediTrain AI: *“Flu is caused by influenza viruses and resolves in 1-2 weeks. Rest, fluids, and over-the-counter medications are key.”* <br> Alex: *“Thanks for the details!”*</li>
+        </ol>
+    </div>
+    """, unsafe_allow_html=True)
 
-    **Scenario: Medical Student Diagnosing a Patient’s Condition**
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    1. **User Opens Chat:**  
-    Alex opens the Meditrain AI app and navigates to the Chat page to start a patient diagnosis simulation.
-
-    2. **Initiating the Chat:**  
-    MediTrain AI: *“Hello, Alex! I’m here to help you practice diagnosing medical cases. Are you ready for a simulation?”*  
-    Alex: *“Yes, let’s start.”*
-
-    3. **Presenting a Case:**  
-    MediTrain AI: *“A 45-year-old male presents with fever, sore throat, body aches, and a persistent cough. What condition do you suspect?”*  
-    Alex: *“It sounds like the flu.”*
-
-    4. **Asking Probing Questions:**  
-    MediTrain AI: *“Does the patient have any difficulty breathing or chest pain?”*  
-    Alex: *“No, there’s no chest pain or shortness of breath.”*
-
-    5. **Confirming Diagnosis:**  
-    MediTrain AI: *“The flu seems likely, but always watch for complications. Would you like to explore more about flu management?”*  
-    Alex: *“Yes.”*
-
-    6. **Educational Insights:**  
-    MediTrain AI: *“Flu is caused by influenza viruses and resolves in 1-2 weeks. Rest, fluids, and over-the-counter medications are key.”*  
-    Alex: *“Thanks for the details!”*
-    """)
-
-
-
-# Feedback Page
-import streamlit as st
 
 def feedback():
-    st.title("Feedback for Meditrain AI")
-    st.markdown("""
-    We value your feedback! Please share your thoughts and suggestions with us. Your feedback helps us improve and provide a better experience for all users.
-    """)
-    
-    # Feedback Form
-    st.subheader("Rate Your Experience")
-    rating = st.slider("How would you rate your experience with Meditrain AI?", 1, 5)
-    
-    # User Comments
-    st.subheader("Your Feedback")
-    user_feedback = st.text_area("Please share any comments, suggestions, or issues you encountered:")
+    st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
-    # Optional Contact Information
-    st.subheader("Contact Information (Optional)")
+    st.markdown('<div class="chat-header" style="color: #00a1a1; font-size: 36px; font-weight: bold;">Feedback for MediTrain AI</div>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="response-box">
+        <p>We value your feedback! Please share your thoughts and suggestions with us. Your feedback helps us improve and provide a better experience for all users.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Rating section
+    st.markdown("""
+    <div class="response-box">
+        <h2 style="color: #008080; font-weight: bold;">Rate Your Experience</h2>
+        <p style="font-size: 16px;">How would you rate your experience with MediTrain AI?</p>
+        """, unsafe_allow_html=True)
+    rating = st.slider("Rate your experience:", 1, 5)
+
+    # User Feedback section
+    st.markdown("""
+    <div class="response-box">
+        <h2 style="color: #008080; font-weight: bold;">Your Feedback</h2>
+        <p style="font-size: 16px;">Please share any comments, suggestions, or issues you encountered:</p>
+        """, unsafe_allow_html=True)
+    user_feedback = st.text_area("", height=150)
+
+    # Contact Info section
+    st.markdown("""
+    <div class="response-box">
+        <h2 style="color: #008080; font-weight: bold;">Contact Information (Optional)</h2>
+        <p style="font-size: 16px;">Your email (optional):</p>
+        """, unsafe_allow_html=True)
     user_email = st.text_input("Email (optional)")
 
-    # Submit Feedback Button
+    # Submit Button
     if st.button("Submit Feedback"):
         if user_feedback:
             st.success("Thank you for your feedback!")
-            # Store the feedback in a file or database (optional)
-            # For example, saving to a text file:
+            # Optionally store feedback in a file or database
             with open("feedback.txt", "a") as file:
                 file.write(f"Rating: {rating}\nFeedback: {user_feedback}\nEmail: {user_email if user_email else 'N/A'}\n\n")
         else:
             st.warning("Please provide feedback before submitting.")
 
-    # Additional Resources
+    # Additional Resources section
     st.markdown("""
-    - [LinkedIn](https://www.linkedin.com/in/anushri-soni)  
-    - [Gmail](mailto:your-email@gmail.com)  
-    """)
+    <div class="response-box">
+        <h2 style="color: #008080; font-weight: bold;">Additional Resources:</h2>
+        <ul>
+            <li><a href="https://www.linkedin.com/in/anushri-soni" style="color: #008080;">LinkedIn</a></li>
+            <li><a href="mailto:anushriisoni@gmail.com" style="color: #008080;">Gmail</a></li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 
@@ -330,7 +383,8 @@ def main():
         st.session_state.page = "chat"
     if st.sidebar.button("Feedback"):
         st.session_state.page = "feedback"
-
+        
+    
     # Display the selected page
     if st.session_state.page == "home":
         home()
