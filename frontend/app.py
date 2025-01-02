@@ -127,54 +127,9 @@ st.markdown(
     }
     .small-button:hover {
         background-color: #005757;
+
     }
-    </style>
-    """, unsafe_allow_html=True
-)
 
-
-# Chat Page
-def chat():
-    # Initialize the conversation history
-    if 'history' not in st.session_state:
-        st.session_state.history = []
-
-    # Chat header
-    st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-    st.markdown('<div class="chat-header" style="color: #00a1a1; font-size: 28px;">MediTrain AI</div>', unsafe_allow_html=True)
-
-    for message in st.session_state.history:
-        st.markdown(f"<div class='response-box'><strong>{message['sender']}:</strong> {message['text']}</div>", unsafe_allow_html=True)
-
-    st.markdown('<label for="chat_input" style="font-size: 18px;">Ask MediTrain something:</label>', unsafe_allow_html=True)
-    user_query = st.text_input("", key="chat_input", label_visibility="collapsed", placeholder="Type your message here")
-
-    if st.button("Send", help="Click to get response"):
-        if user_query.strip():
-            st.session_state.history.append({"sender": "You", "text": user_query})
-
-            with st.spinner("Thinking... 🤔"):
-                try:
-                    response = requests.post(API_URL_CHAT, json={"query": user_query})
-                    if response.status_code == 200:
-                        chatbot_response = response.json().get("response", "No response.")
-                        st.session_state.history.append({"sender": "MediTrain", "text": chatbot_response})
-                        st.markdown("<div class='response-box'>", unsafe_allow_html=True)
-                        st.markdown(f"<strong>MediTrain : </strong> {chatbot_response}", unsafe_allow_html=True)
-                        st.markdown("</div>", unsafe_allow_html=True)
-                    else:
-                        st.error(f"Error: {response.status_code} - {response.text}")
-                except Exception as e:
-                    st.error(f"An error occurred: {str(e)}")
-        else:
-            st.warning("Please type something to ask MediTrain!")
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-
-def home():
-    st.markdown("""
-    <style>
     .home-background {
         background: linear-gradient(135deg, #ffe4e1 0%, #e0f7fa 50%, #e8f5e9 100%);
         padding: 20px;
@@ -202,10 +157,68 @@ def home():
         text-align: justify;
         margin-bottom: 20px;
     }
+
+    .feedback-section {
+            margin-bottom: 40px;
+        }
+        .stSlider>div>div>input {
+            width: 60% !important;
+            height: 10px !important;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        hr {
+            border: 1px solid #00a1a1;  /* Teal color */
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
     
     </style>
-    """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True
+)
 
+
+# Chat Page
+
+def chat():
+    # Initialize the conversation history
+    if 'history' not in st.session_state:
+        st.session_state.history = []
+
+    # Chat header
+    st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+    st.markdown('<div class="chat-header" style="color: #00a1a1; font-size: 28px;">Chat with MediTrain AI</div>', unsafe_allow_html=True)
+
+    for message in st.session_state.history:
+        st.markdown(f"<div class='response-box'><strong>{message['sender']}:</strong> {message['text']}</div>", unsafe_allow_html=True)
+
+    user_query = st.text_input("", key="chat_input", label_visibility="collapsed", placeholder="Type your message here")
+
+    if st.button("Send", help="Click to get response"):
+        if user_query.strip():
+            st.session_state.history.append({"sender": "You", "text": user_query})
+
+            with st.spinner("Thinking... 🤔"):
+                try:
+                    response = requests.post(API_URL_CHAT, json={"query": user_query})
+                    if response.status_code == 200:
+                        chatbot_response = response.json().get("response", "No response.")
+                        st.session_state.history.append({"sender": "MediTrain", "text": chatbot_response})
+                        st.markdown("<div class='response-box'>", unsafe_allow_html=True)
+                        st.markdown(f"<strong>MediTrain : </strong> {chatbot_response}", unsafe_allow_html=True)
+                        st.markdown("</div>", unsafe_allow_html=True)
+                    else:
+                        st.error(f"Error: {response.status_code} - {response.text}")
+                except Exception as e:
+                    st.error(f"An error occurred: {str(e)}")
+        else:
+            st.warning("Please type something to ask MediTrain!")
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+def home():
+    
     st.markdown("""
     <div class="home-background">
         <div class="home-header">
@@ -330,26 +343,6 @@ def how_to_use():
 
 def feedback():
    
-    st.markdown("""
-    <style>
-        .feedback-section {
-            margin-bottom: 40px;
-        }
-        .stSlider>div>div>input {
-            width: 60% !important;
-            height: 10px !important;
-        }
-        .button-container {
-            margin-top: 20px;
-        }
-        hr {
-            border: 1px solid #00a1a1;  /* Teal color */
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-    </style>
-    """, unsafe_allow_html=True)
-
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
     st.markdown('<div class="chat-header" style="color: #00a1a1; font-size: 36px; font-weight: bold;">Feedback for MediTrain AI</div>', unsafe_allow_html=True)
@@ -427,28 +420,30 @@ def main():
         st.session_state.page = "home"
 
     # Sidebar with navigation buttons
-    st.sidebar.title("Dashboard")
-    if st.sidebar.button("Home"):
+    st.sidebar.title("DASH-BOARD")
+    if st.sidebar.button("HOME"):
         st.session_state.page = "home"
-    if st.sidebar.button("About"):
+    if st.sidebar.button("CHAT"):
+        st.session_state.page = "chat"    
+    if st.sidebar.button("ABOUT"):
         st.session_state.page = "about"
-    if st.sidebar.button("How to Use"):
+    if st.sidebar.button("EXPLORE"):
         st.session_state.page = "how_to_use"
-    if st.sidebar.button("Chat"):
-        st.session_state.page = "chat"
-    if st.sidebar.button("Feedback"):
+    
+    if st.sidebar.button("FEEDBACK"):
         st.session_state.page = "feedback"
         
     
     # Display the selected page
     if st.session_state.page == "home":
         home()
+    elif st.session_state.page == "chat":
+        chat()
     elif st.session_state.page == "about":
         about()
     elif st.session_state.page == "how_to_use":
         how_to_use()
-    elif st.session_state.page == "chat":
-        chat()
+    
     elif st.session_state.page == "feedback":
         feedback()
 
