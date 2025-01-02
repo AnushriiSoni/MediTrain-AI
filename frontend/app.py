@@ -2,9 +2,9 @@ import streamlit as st
 import requests
 
 #API URL
-API_URL_CHAT = "YOUR_URL"  
+API_URL_CHAT = "http://localhost:5000/response"  
 
-# Set up the Streamlit page configuration
+
 st.set_page_config(
     page_title="MediTrain AI",
     page_icon="🤖",
@@ -12,19 +12,15 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-
-#CSS styles for the entire app
 st.markdown(
     """
     <style>
-    /* General Page Styles */
     .css-1v3fvcr {
         text-align: center;
-        font-size: 40px;
+        font-size: 36px; 
         color: #008000; /* Green */
     }
 
-    /* Input Fields */
     .stTextInput>div>input,
     .stTextArea>div>textarea {
         background-color: #f0f8ff; /* Light Blue */
@@ -35,31 +31,28 @@ st.markdown(
         color: #333;
     }
 
-/* Buttons for Dashboard */
-.stButton>button {
-    background-color: white; /* White background for the button */
-    color: #008080; /* Teal Blue text color */
-    font-weight: bold;
-    font-size: 100px; /* Increased text size */
-    
-   
-    padding: 14px 28px; /* Larger padding for better usability */
-    margin-bottom: 10px;
-    cursor: pointer;
-    width: 100%; /* Full width */
-    text-align: left; /* Align text to the left */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
+    /* Buttons for Dashboard */
+    .stButton>button {
+        background-color: white; 
+        color: #008080; 
+        font-weight: bold;
+        font-size: 20px; 
+        padding: 14px 28px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        width: 100%;
+        text-align: left; 
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+    }
 
-/* Hover effect */
-.stButton>button:hover {
-    background-color: #008080; /* Teal Blue background on hover */
-    color: white; /* White text color on hover */
-    border: 2px solid #008080; /* Teal Blue border on hover */
-    font-size: 20px; /* Increased text size on hover */
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-}
-
+    /* Hover effect */
+    .stButton>button:hover {
+        background-color: #008080; 
+        color: white; 
+        border: 2px solid #008080; 
+        font-size: 22px;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); 
+    }
 
     /* Chat Container */
     .chat-container {
@@ -68,25 +61,28 @@ st.markdown(
         max-width: 800px;
         margin: 0 auto;
         padding: 20px;
-        background-color: #f0f8ff; /* Light Blue */
-        border: 2px solid #ff69b4; /* Dark Pink */
+        background-color: #f0f8ff; 
+        border: 2px solid #ff69b4; 
         border-radius: 15px;
         box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        max-height: 400px;
+        overflow-y: auto;
+        margin-bottom: 20px;
     }
 
     /* Chat Header */
     .chat-header {
-        font-size: 28px;
+        font-size: 28px; 
         font-weight: bold;
-        color: #008000; /* Green */
+        color: #008000; 
         text-align: center;
         margin-bottom: 20px;
     }
 
     /* Response Boxes */
     .response-box {
-        background-color: #e6f7ff; /* Very Light Blue */
-        border-left: 5px solid #ff69b4; /* Dark Pink */
+        background-color: #e6f7ff; 
+        border-left: 5px solid #ff69b4; 
         padding: 15px;
         border-radius: 8px;
         margin: 10px 0;
@@ -97,14 +93,14 @@ st.markdown(
     /* Labels */
     label {
         font-size: 18px;
-        color: #008000; /* Green */
+        color: #008000;
         font-weight: bold;
     }
 
     /* Sidebar */
     .css-1d391kg {
-        background-color: #f0f8ff; /* Light Blue */
-        color: #008000; /* Green */
+        background-color: #f0f8ff; 
+        color: #008000; 
         border: none;
         border-radius: 10px;
         padding: 20px;
@@ -112,12 +108,25 @@ st.markdown(
 
     /* Footer Links */
     a {
-        color: #ff69b4; /* Dark Pink */
+        color: #ff69b4; 
         text-decoration: none;
         font-weight: bold;
     }
     a:hover {
         text-decoration: underline;
+    }
+
+    .small-button {
+        font-size: 14px; 
+        padding: 8px 16px;
+        background-color: #008080; 
+        color: white;
+        border: none; 
+        border-radius: 8px; 
+        cursor: pointer; 
+    }
+    .small-button:hover {
+        background-color: #005757;
     }
     </style>
     """, unsafe_allow_html=True
@@ -130,38 +139,26 @@ def chat():
     if 'history' not in st.session_state:
         st.session_state.history = []
 
-    API_URL_CHAT = "YOUR_URL"  
-
     # Chat header
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-    st.markdown('<div class="chat-header" style="color: #00a1a1; font-size: 36px; font-weight: bold;">MediTrain AI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="chat-header" style="color: #00a1a1; font-size: 28px;">MediTrain AI</div>', unsafe_allow_html=True)
 
-
-    # Display the conversation history
     for message in st.session_state.history:
         st.markdown(f"<div class='response-box'><strong>{message['sender']}:</strong> {message['text']}</div>", unsafe_allow_html=True)
 
-    # Input field for user query
-    st.markdown('<label for="chat_input" style="font-size: 20px;">Ask MediTrain something:</label>', unsafe_allow_html=True)
+    st.markdown('<label for="chat_input" style="font-size: 18px;">Ask MediTrain something:</label>', unsafe_allow_html=True)
     user_query = st.text_input("", key="chat_input", label_visibility="collapsed", placeholder="Type your message here")
 
-    # Button for sending the message
     if st.button("Send", help="Click to get response"):
         if user_query.strip():
-            # Save the user's message in history
             st.session_state.history.append({"sender": "You", "text": user_query})
 
             with st.spinner("Thinking... 🤔"):
                 try:
-                    # Make a POST request to the chatbot API
                     response = requests.post(API_URL_CHAT, json={"query": user_query})
                     if response.status_code == 200:
-                        # Get the chatbot's response from the API
                         chatbot_response = response.json().get("response", "No response.")
-                        # Save the chatbot's response in history
                         st.session_state.history.append({"sender": "MediTrain", "text": chatbot_response})
-
-                        # Display the chatbot response in the styled response box
                         st.markdown("<div class='response-box'>", unsafe_allow_html=True)
                         st.markdown(f"<strong>MediTrain : </strong> {chatbot_response}", unsafe_allow_html=True)
                         st.markdown("</div>", unsafe_allow_html=True)
@@ -172,46 +169,62 @@ def chat():
         else:
             st.warning("Please type something to ask MediTrain!")
 
-    # Close the chat container
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-
-
 def home():
+    st.markdown("""
+    <style>
+    .home-background {
+        background: linear-gradient(135deg, #ffe4e1 0%, #e0f7fa 50%, #e8f5e9 100%);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .home-header {
+        text-align: center;
+        color: #004d40;
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    .home-subheader {
+        text-align: center;
+        color: #005f73;
+        font-size: 28px;
+        font-style: italic;
+        margin-bottom: 30px;
+    }
+    .home-content {
+        color: #333;
+        font-size: 20px;
+        line-height: 1.8;
+        text-align: justify;
+        margin-bottom: 20px;
+    }
     
-    st.markdown("""
-    <div style="text-align: center; color: #004d40; font-size: 48px; font-weight: bold; margin-bottom: 20px;">
-        Welcome to <span style="color: #008080;">Meditrain AI</span>
-    </div>
+    </style>
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="text-align: center; color: #005f73; font-size: 28px; font-style: italic; margin-bottom: 30px;">
-        Your Ultimate Partner in <span style="color: #000; font-weight: bold;">Mastering Medical Knowledge</span> and Revolutionizing Patient Care 🤖💡
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div style="color: #333; font-size: 20px; line-height: 1.8; text-align: justify; margin-bottom: 20px;">
-        <strong>Meditrain AI</strong> empowers <span style="color: #008080; font-weight: bold;">medical students</span>, <span style="color: #008080; font-weight: bold;">healthcare professionals</span>, and <span style="color: #d81b60; font-weight: bold;">patients</span> by combining <span style="color: #005f73;">advanced AI technology</span> with practical medical scenarios. Whether you’re learning or enhancing your skills, Meditrain AI provides personalized insights and recommendations to help you grow in your medical journey.
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div style="color: #333; font-size: 20px; line-height: 1.8; text-align: justify; margin-bottom: 30px;">
-        Experience realistic case simulations, improve patient care knowledge, and stay updated with the latest medical trends. Meditrain AI is designed to make learning interactive, engaging, and most importantly, practical. Ready to take your medical knowledge to the next level?
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div style="text-align: center; margin-top: 40px;">
-        <p style="font-size: 22px; color: #333;">
-            <strong>Start your journey now!</strong>
-        </p>
-        <p style="font-size: 18px; color: #333;">
-            Visit the <strong>Chat Page</strong> from the Dashboard to explore our AI-powered platform.
-        </p>
+    <div class="home-background">
+        <div class="home-header">
+            Welcome to <span style="color: #008080;">Meditrain AI</span>
+        </div>
+        <div class="home-subheader">
+            Your Ultimate Partner in <span style="color: #000; font-weight: bold;">Mastering Medical Knowledge</span> and Revolutionizing Patient Care 🤖💡
+        </div>
+        <div class="home-content">
+            <strong>Meditrain AI</strong> empowers <span style="color: #008080; font-weight: bold;">medical students</span>, 
+            <span style="color: #008080; font-weight: bold;">healthcare professionals</span>, and 
+            <span style="color: #d81b60; font-weight: bold;">patients</span> by combining <span style="color: #005f73;">advanced AI technology</span> 
+            with practical medical scenarios. Whether you’re learning or enhancing your skills, Meditrain AI provides personalized insights and recommendations 
+            to help you grow in your medical journey.
+        </div>
+        <div class="home-content">
+            Experience realistic case simulations, improve patient care knowledge, and stay updated with the latest medical trends. Meditrain AI is designed 
+            to make learning interactive, engaging, and most importantly, practical. Ready to take your medical knowledge to the next level?
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -314,64 +327,98 @@ def how_to_use():
     st.markdown('</div>', unsafe_allow_html=True)
 
 
+
 def feedback():
+   
+    st.markdown("""
+    <style>
+        .feedback-section {
+            margin-bottom: 40px;
+        }
+        .stSlider>div>div>input {
+            width: 60% !important;
+            height: 10px !important;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        hr {
+            border: 1px solid #00a1a1;  /* Teal color */
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
     st.markdown('<div class="chat-header" style="color: #00a1a1; font-size: 36px; font-weight: bold;">Feedback for MediTrain AI</div>', unsafe_allow_html=True)
 
+    
+    st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
     st.markdown("""
-    <div class="response-box">
-        <p>We value your feedback! Please share your thoughts and suggestions with us. Your feedback helps us improve and provide a better experience for all users.</p>
-    </div>
+    <h2 style="color: #008080; font-weight: bold; font-size: 24px;">Rate Your Experience ⭐️</h2>
+    <p style="font-size: 16px;">How would you rate your experience with MediTrain AI? Please select a rating below:</p>
     """, unsafe_allow_html=True)
-
-    # Rating section
-    st.markdown("""
-    <div class="response-box">
-        <h2 style="color: #008080; font-weight: bold;">Rate Your Experience</h2>
-        <p style="font-size: 16px;">How would you rate your experience with MediTrain AI?</p>
-        """, unsafe_allow_html=True)
+    
     rating = st.slider("Rate your experience:", 1, 5)
+    st.markdown(f"<p style='font-size: 24px; color: #008080;'>Rating: {'⭐️' * rating}</p>", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    # User Feedback section
+    
+    st.markdown('<hr>', unsafe_allow_html=True)
+
+    
+    st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
     st.markdown("""
-    <div class="response-box">
-        <h2 style="color: #008080; font-weight: bold;">Your Feedback</h2>
-        <p style="font-size: 16px;">Please share any comments, suggestions, or issues you encountered:</p>
-        """, unsafe_allow_html=True)
+    <h2 style="color: #008080; font-weight: bold; font-size: 24px;">Your Feedback 💬</h2>
+    <p style="font-size: 16px;">Please share any comments, suggestions, or issues you encountered:</p>
+    """, unsafe_allow_html=True)
     user_feedback = st.text_area("", height=150)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    # Contact Info section
+    
+    st.markdown('<hr>', unsafe_allow_html=True)
+
+    
+    st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
     st.markdown("""
-    <div class="response-box">
-        <h2 style="color: #008080; font-weight: bold;">Contact Information (Optional)</h2>
-        <p style="font-size: 16px;">Your email (optional):</p>
-        """, unsafe_allow_html=True)
+    <h2 style="color: #008080; font-weight: bold; font-size: 24px;">Contact Information (Optional) 📧</h2>
+    <p style="font-size: 16px;">Your email (optional):</p>
+    """, unsafe_allow_html=True)
     user_email = st.text_input("Email (optional)")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    # Submit Button
-    if st.button("Submit Feedback"):
+    
+    st.markdown('<div class="button-container">', unsafe_allow_html=True)
+    submit_button = st.button("Submit Feedback")
+
+    if submit_button:
         if user_feedback:
-            st.success("Thank you for your feedback!")
-            # Optionally store feedback in a file or database
+            st.success("Thank you for your feedback! 😊")
+            
             with open("feedback.txt", "a") as file:
                 file.write(f"Rating: {rating}\nFeedback: {user_feedback}\nEmail: {user_email if user_email else 'N/A'}\n\n")
         else:
-            st.warning("Please provide feedback before submitting.")
+            st.warning("Please provide feedback before submitting. ⚠️")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    # Additional Resources section
+    
+    st.markdown('<hr>', unsafe_allow_html=True)
+
+    
     st.markdown("""
     <div class="response-box">
-        <h2 style="color: #008080; font-weight: bold;">Additional Resources:</h2>
+        <h2 style="color: #008080; font-weight: bold; font-size: 24px;">Get in Touch 📱</h2>
+        <p>If you'd like to connect with me, feel free to reach out on LinkedIn or send an email!</p>
         <ul>
-            <li><a href="https://www.linkedin.com/in/anushri-soni" style="color: #008080;">LinkedIn</a></li>
-            <li><a href="mailto:anushriisoni@gmail.com" style="color: #008080;">Gmail</a></li>
+            <li><a href="https://www.linkedin.com/in/anushri-soni" style="color: #008080;">LinkedIn</a>🔗</li>
+            <li><a href="mailto:anushriisoni@gmail.com" style="color: #008080;">anushriisoni@gmail.com</a> 📧</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
-
 
 
 # Main function to navigate between pages
