@@ -7,7 +7,7 @@ from groq import Groq
 # Load environment variables
 load_dotenv()
 
-API_URL_CHAT = "http://localhost:5000/response"
+API_URL_CHAT = os.getenv("API_URL_CHAT")  
 
 
 # Initialize Flask app and CORS
@@ -107,4 +107,4 @@ def response():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", debug=True)
