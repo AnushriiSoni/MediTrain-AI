@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 #API URL
-API_URL_CHAT = os.getenv("API_URL_CHAT")  
+api_url = os.environ.get("API_URL_CHAT")
 
 
 st.set_page_config(
