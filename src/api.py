@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 from groq import Groq
 
 # Load environment variables
-load_dotenv()
+load_dotenv()  
 
-API_URL_CHAT = os.getenv("API_URL_CHAT")  
+api_url = os.environ.get("API_URL_CHAT")
 
 
 # Initialize Flask app and CORS
@@ -16,6 +16,10 @@ CORS(app)
 
 # Initialize Groq client
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
+if not groq_api_key or not api_url:
+    raise ValueError("GROQ_API_KEY or API_URL not found in .env file")
+
 
 def get_reponse(text):
     """Generate a response using the Groq API."""
@@ -107,4 +111,5 @@ def response():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
+
