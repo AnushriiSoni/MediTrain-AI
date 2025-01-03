@@ -1,30 +1,30 @@
 import os
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from dotenv import load_dotenv
 from groq import Groq
 
-import requests
-from flask import Flask, request, jsonify
-
-from flask_cors import CORS
-
+# Load environment variables
 load_dotenv()
 
-app = Flask(__name__)
+API_URL_CHAT = "http://localhost:5000/response"
 
+
+# Initialize Flask app and CORS
+app = Flask(__name__)
 CORS(app)
 
-client = Groq(
-    api_key=os.environ.get("GROQ_API_KEY"),
-)
-
+# Initialize Groq client
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 def get_reponse(text):
-    chat_completion = client.chat.completions.create(
-        messages=[
-            {
-                "role": "system",
-                "content": """
-
+    """Generate a response using the Groq API."""
+    try:
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": """
 
 **MediTrain AI**  
 Hello! 👋 I’m MediTrain AI, your conversational assistant designed to help you learn more about healthcare, practice your medical skills, and stay informed about wellness. Whether you're a medical student, professional, or someone interested in health awareness, I’m here to guide you through realistic patient simulations, provide clear medical explanations, and offer practical health tips.
@@ -73,36 +73,38 @@ MediTrain AI adopts a professional, empathetic, and approachable tone throughout
 - **Comfortable Accessibility:** Prioritize clarity and user-friendly explanations to ensure that all interactions are easy to follow, regardless of expertise.
 
                 """,
-            },
-            {
-                "role": "user",
-                "content": text,
-            },
-        ],
-        model="llama3-8b-8192",
-    )
-    return chat_completion.choices[0].message.content
-
+                },
+                {
+                    "role": "user",
+                    "content": text,
+                },
+            ],
+            model="llama3-8b-8192",
+        )
+        return chat_completion.choices[0].message.content
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 @app.route("/", methods=["GET"])
-def checkHealth():
+def check_health():
+    """Health check endpoint."""
     try:
         return jsonify({"status": "Health check ok"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 @app.route("/response", methods=["POST"])
 def response():
+    """Generate a response based on the user's query."""
     try:
         data = request.get_json()
-        query = data.get("query")
-        response = get_reponse(query)
-        return jsonify({"response": response})
+        if not data or "query" not in data:
+            return jsonify({"error": "Invalid request data"}), 400
+        query = data["query"]
+        reply = get_reponse(query)
+        return jsonify({"response": reply})
     except Exception as e:
-        print(e)
         return jsonify({"error": str(e)}), 500
 
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port=5000, debug=True)
