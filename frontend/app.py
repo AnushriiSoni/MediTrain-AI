@@ -1,5 +1,8 @@
+import os
 import streamlit as st
 import requests
+
+load_dotenv()
 
 #API URL
 api_url = os.environ.get("API_URL_CHAT")
